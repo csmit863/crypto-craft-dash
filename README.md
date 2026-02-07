@@ -1,3 +1,12 @@
+## CryptoCraft Dashboard
+
+This is a web app which should help provide information about blockcoin balances and Minecraft assets. If you are looking to easily check the price of an item, you can search its name and find its name, symbol, liquidity and price.
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
