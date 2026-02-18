@@ -46,6 +46,8 @@ export default function ItemMarket() {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState("Starting…");
   const [search, setSearch] = useState("");
+  const [selectedRow, setSelectedRow] = useState<MarketRow | null>(null);
+
 
   const filteredRows = useMemo(() => {
     if (!search) return rows;
@@ -228,16 +230,43 @@ export default function ItemMarket() {
 
             <div style={{ height: 600, width: "100%" }}>
                 <AgGridReact
-                theme={myTheme}
-                rowData={filteredRows}
-                columnDefs={columnDefs}
-                animateRows
-                defaultColDef={{
+                  theme={myTheme}
+                  rowData={filteredRows}
+                  columnDefs={columnDefs}
+                  animateRows
+                  onRowClicked={(event) => setSelectedRow(event.data)}
+                  defaultColDef={{
                     sortable: true,
                     filter: true,
                     resizable: true,
-                }}
+                  }}
                 />
+                {selectedRow && (
+                  <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+                    <div className="bg-zinc-900 text-white p-6 rounded-xl w-full max-w-lg">
+                      <h2 className="text-xl font-bold mb-4">
+                        {selectedRow.name} ({selectedRow.symbol})
+                      </h2>
+
+                      <div className="space-y-2 text-sm break-all">
+                        <p><strong>Token Address:</strong> {selectedRow.asset}</p>
+                        <p><strong>Pair Address:</strong> {selectedRow.pair}</p>
+                        <p><strong>Price:</strong> {selectedRow.price}</p>
+                        <p><strong>Block Liquidity:</strong> {selectedRow.blockLiquidity}</p>
+                        <p><strong>Item Liquidity:</strong> {selectedRow.assetLiquidity}</p>
+                      </div>
+
+                      <button
+                        onClick={() => setSelectedRow(null)}
+                        className="mt-6 px-4 py-2 bg-red-600 rounded"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+
             </div>
             </>
             )
