@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import BlockcoinPage from "./pages/BlockcoinPage";
 import About from "./pages/About"; // optional
 import ItemMarket from "./pages/ItemMarket"; // optional
 
@@ -20,7 +19,6 @@ export default function Home() {
         <div className="text-xl font-bold">CryptoCraft Dashboard</div>
         <div className="flex gap-4">
           <div className={navClasses("about")} onClick={() => setActiveTab("about")}>About</div>
-          <div className={navClasses("blockcoin")} onClick={() => setActiveTab("blockcoin")}>Blockcoin</div>
           <div className={navClasses("market")} onClick={() => setActiveTab("market")}>Item Market</div>
         </div>
       </nav>
@@ -28,7 +26,6 @@ export default function Home() {
       {/* Main Content */}
       <main>
         {activeTab === "about" && <About />}
-        {activeTab === "blockcoin" && <BlockcoinPage />}
         {activeTab === "market" && <ItemMarket />}
       </main>
     </div>
