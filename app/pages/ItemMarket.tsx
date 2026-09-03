@@ -272,13 +272,13 @@ export default function ItemMarket() {
                         <p><strong>Pair Address:</strong> {selectedRow.pair}</p>
                         <p><strong>Current Price:</strong> {selectedRow.price}</p>
                         <p><strong>Historical Price:</strong> {selectedRow.asset ? "Not loaded" : "N/A"}</p>
-                        {historyResults.length > 0 && (
+                      </div>
+                      <div className="mt-2">
                           <div className="mt-4 h-32 flex items-end gap-1 bg-[#dfdfdf] border-2 border-[#808080] p-2 rounded overflow-x-auto">
                             {historyResults.map((r, i) => (
                               <div key={i} className="flex-1 bg-[#008080] min-w-[8px] rounded-t" style={{height: `${Math.max(4, ((r.price || 0) / Math.max(...historyResults.map(x=>x.price||1))) * 100)}%`}} title={`Block ${r.block}: ${r.price !== null ? r.price.toFixed(4) : 'n/a'}`} />
                             ))}
                           </div>
-                        )}
                           <button
                             onClick={async () => {
                               const pairAddr = selectedRow.pair || "0x0000000000000000000000000000000000000000";
@@ -309,6 +309,7 @@ export default function ItemMarket() {
                           >
                             Query historical data
                           </button>
+                        </div>
                         </div>
                         <p><strong>Block Liquidity:</strong> {selectedRow.blockLiquidity}</p>
                         <p><strong>Item Liquidity:</strong> {selectedRow.assetLiquidity}</p>
