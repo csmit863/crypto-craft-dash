@@ -6,7 +6,7 @@ import {
   ERC20_ABI,
   UNISWAP_FACTORY_ABI,
   UNISWAP_PAIR_ABI,
-  ASSET_FACTORY_ABI,
+  ASSET_FACTORY_V2_ABI,
 } from "@/lib/abi";
 import {
   BLOCKCOIN_ADDRESS,
@@ -109,7 +109,7 @@ export default function ItemMarket() {
 
             const assets = (await client.readContract({
             address: ASSETFACTORY_ADDRESS,
-            abi: ASSET_FACTORY_ABI,
+            abi: ASSET_FACTORY_V2_ABI,
             functionName: "getAllAssets",
             })) as Address[];
 
