@@ -7,11 +7,6 @@ import ItemMarket from "./pages/ItemMarket"; // optional
 export default function Home() {
   const [activeTab, setActiveTab] = useState<"about" | "blockcoin" | "market">("blockcoin");
 
-  const navClasses = (tab: string) =>
-    `px-4 py-2 font-medium cursor-pointer ${
-      activeTab === tab ? "text-white bg-black rounded" : "text-black dark:text-white hover:underline"
-    }`;
-
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-black text-black dark:text-white font-sans">
       {/* Navbar */}
@@ -22,9 +17,7 @@ export default function Home() {
           <div className={navClasses("market")} onClick={() => setActiveTab("market")}>Item Market</div>
         </div>
       </nav>
-
-      {/* Main Content */}
-      <main>
+      <main className="p-4">
         {activeTab === "about" && <About />}
         {activeTab === "market" && <ItemMarket />}
       </main>
