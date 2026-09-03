@@ -274,18 +274,26 @@ export default function ItemMarket() {
                         <div className="mt-2">
                           <button
                             onClick={async () => {
+                              const pairAddr = selectedRow.pair || "0x0000000000000000000000000000000000000000";
                               const results = [];
-                              for (let i = 0; i < 10; i++) {
-                                const blockTag = i === 0 ? "latest" : `0x${(i).toString(16)}`;
+                              results.push({block: 'current', price: selectedRow.price});
+                              for (let i = 1; i <= 50; i++) {
+                                const blockTag = `0x${i.toString(16)}`;
                                 const res = await fetch(`https://testnet.qutblockchain.club`, {
                                   method: 'POST',
                                   headers: {'Content-Type':'application/json'},
-                                  body: JSON.stringify({jsonrpc:'2.0',id:i,method:'eth_call',params:[{to:selectedRow.asset,data:'0xdfbac3b8'},blockTag]})
+                                  body: JSON.stringify({jsonrpc:'2.0',id:i,method:'eth_call',params:[{to:pairAddr,data:'0x0902f1ac'},blockTag]})
                                 });
                                 const data = await res.json();
-                                results.push({block: i, price: data.result ? parseInt(data.result.slice(2), 16) / 1e18 : null});
+                                let price = null;
+                                if (data.result && data.result.length >= 3) {
+                                  const r0 = parseInt(data.result[0].slice(2), 16);
+                                  const r1 = parseInt(data.result[1].slice(2), 16);
+                                  price = r1 / r0 || null;
+                                }
+                                results.push({block: `-${i}`, price: price !== null ? price.toFixed(4) : 'n/a'});
                               }
-                              const chartText = results.map(r => `Block ${r.block}: price=${r.price !== null ? r.price.toFixed(4) : 'n/a'}`).join('\n');
+                              const chartText = results.map(r => `Block ${r.block}: price=${r.price}`).join('\n');
                               alert(`Price chart (block -> price):\n` + chartText);
                             }}
                             className="px-3 py-1 bg-[#c0c7c8] text-black border-2 border-t-white border-l-white border-b-[#808080] border-r-[#808080] rounded shadow-[inset_1px_1px_#fff,inset_-1px_-1px_#808080] hover:bg-[#dfdfdf] text-xs"
