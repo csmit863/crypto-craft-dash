@@ -310,7 +310,6 @@ export default function ItemMarket() {
                             Query historical data
                           </button>
                         </div>
-                        </div>
                         <p><strong>Block Liquidity:</strong> {selectedRow.blockLiquidity}</p>
                         <p><strong>Item Liquidity:</strong> {selectedRow.assetLiquidity}</p>
                       </div>
