@@ -20,16 +20,7 @@ import type { ColDef } from "ag-grid-community";
 import { useMemo } from "react";
 import { themeQuartz, colorSchemeDark } from "ag-grid-community";
 
-const myTheme = themeQuartz.withPart({
-  ...colorSchemeDark,
-  backgroundColor: '#c0c7c8',
-  foregroundColor: '#000000',
-  headerBackgroundColor: '#808080',
-  headerTextColor: '#ffffff',
-  cellTextColor: '#000000',
-  headerFontFamily: '"Chicago", "MS Sans Serif", Tahoma, sans-serif',
-  fontFamily: '"Chicago", "MS Sans Serif", Tahoma, sans-serif',
-});
+const myTheme = themeQuartz.withPart(colorSchemeDark);
 
 import { ModuleRegistry, AllCommunityModule } from "ag-grid-community";
 ModuleRegistry.registerModules([AllCommunityModule]);
