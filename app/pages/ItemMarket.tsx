@@ -292,6 +292,7 @@ export default function ItemMarket() {
                                   body: JSON.stringify({jsonrpc:'2.0',id:i,method:'eth_call',params:[{to:pairAddr,data:'0x0902f1ac'},blockTag]})
                                 });
                                 const data = await res.json();
+                                console.log(`Block ${i} RPC:`, data);
                                 let price = null;
                                 if (data.result && data.result.length >= 3) {
                                   const r0 = parseInt(data.result[0].slice(2), 16);
