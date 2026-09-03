@@ -269,7 +269,8 @@ export default function ItemMarket() {
                       <div className="space-y-2 text-sm break-all">
                         <p><strong>Token Address:</strong> {selectedRow.asset}</p>
                         <p><strong>Pair Address:</strong> {selectedRow.pair}</p>
-                        <p><strong>Price:</strong> {selectedRow.price}</p>
+                        <p><strong>Current Price:</strong> {selectedRow.price}</p>
+                        <p><strong>Historical Price:</strong> {selectedRow.asset ? "Loading..." : "N/A"}</p>
                         <p><strong>Block Liquidity:</strong> {selectedRow.blockLiquidity}</p>
                         <p><strong>Item Liquidity:</strong> {selectedRow.assetLiquidity}</p>
                       </div>
