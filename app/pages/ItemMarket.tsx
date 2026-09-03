@@ -276,15 +276,17 @@ export default function ItemMarket() {
                             onClick={async () => {
                               const results = [];
                               for (let i = 0; i < 10; i++) {
+                                const blockTag = i === 0 ? "latest" : `0x${(i).toString(16)}`;
                                 const res = await fetch(`https://testnet.qutblockchain.club`, {
                                   method: 'POST',
                                   headers: {'Content-Type':'application/json'},
-                                  body: JSON.stringify({jsonrpc:'2.0',id:i,method:'eth_call',params:[{to:selectedRow.asset,data:'0x06fdde03'},`0x${(100000 - i).toString(16)}`]})
+                                  body: JSON.stringify({jsonrpc:'2.0',id:i,method:'eth_call',params:[{to:selectedRow.asset,data:'0xdfbac3b8'},blockTag]})
                                 });
                                 const data = await res.json();
-                                results.push(`block -${i}: ${JSON.stringify(data.result)}`);
+                                results.push({block: i, price: data.result ? parseInt(data.result.slice(2), 16) / 1e18 : null});
                               }
-                              alert(`Block-by-block price:\n` + results.join('\n'));
+                              const chartText = results.map(r => `Block ${r.block}: price=${r.price !== null ? r.price.toFixed(4) : 'n/a'}`).join('\n');
+                              alert(`Price chart (block -> price):\n` + chartText);
                             }}
                             className="px-3 py-1 bg-[#c0c7c8] text-black border-2 border-t-white border-l-white border-b-[#808080] border-r-[#808080] rounded shadow-[inset_1px_1px_#fff,inset_-1px_-1px_#808080] hover:bg-[#dfdfdf] text-xs"
                           >
