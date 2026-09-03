@@ -276,7 +276,7 @@ export default function ItemMarket() {
                       <div className="mt-2">
                           <div className="mt-4 h-32 flex items-end gap-1 bg-[#dfdfdf] border-2 border-[#808080] p-2 rounded overflow-x-auto">
                             {historyResults.map((r, i) => (
-                              <div key={i} className="flex-1 bg-[#008080] min-w-[8px] rounded-t" style={{height: `${Math.max(4, ((r.price || 0) / Math.max(...historyResults.map(x=>x.price||1))) * 100)}%`}} title={`Block ${r.block}: ${r.price !== null ? r.price.toFixed(4) : 'n/a'}`} />
+                              <div key={i} className="flex-1 bg-[#008080] min-w-[8px] rounded-t" style={{minHeight: `4px`, height: `${Math.max(4, ((r?.price||0) / 2) * 100)}%`}} title={`Block ${r.block}: ${r?.price !== null ? r.price.toFixed(4) : 'n/a'}`} />
                             ))}
                           </div>
                           <button
