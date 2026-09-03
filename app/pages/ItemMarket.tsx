@@ -227,6 +227,9 @@ export default function ItemMarket() {
 
       </div>
 
+      {!loading && rows.length === 0 ? (
+        <p>Failed to load market data</p>
+      ) : null}
       {loading ? (
         <p>Loading market… {progress}</p> 
         

@@ -1,25 +1,13 @@
-@import "tailwindcss";
-
-:root {
-  --background: #c0c7c8;
-  --foreground: #000000;
-  --win95-grey: #c0c7c8;
-  --win95-dark: #808080;
-  --win95-darker: #404040;
-  --win95-teal: #008080;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: "MS Sans Serif", "Chicago", "Tahoma", sans-serif;
-  --font-mono: "Chicago", "Courier New", monospace;
-}
-
-body {
-  background: var(--win95-grey);
-  color: var(--foreground);
-  font-family: "Chicago", "MS Sans Serif", Tahoma, sans-serif;
-  border: 2px solid #fff;
-  box-shadow: inset -1px -1px var(--win95-darker), inset 1px 1px #fff;
+/* AgGrid Chicago95 / Win95 grey styling overrides */
+.ag-theme-quartz,
+.ag-theme-quartz-dark {
+  --ag-background-color: #c0c7c8;
+  --ag-foreground-color: #000000;
+  --ag-header-background-color: #808080;
+  --ag-odd-row-background-color: #dfdfdf;
+  --ag-row-hover-color: #b8b8b8;
+  --ag-selected-row-background-color: #a0a0a0;
+  --ag-border-color: #808080;
+  --ag-font-family: "Chicago", "MS Sans Serif", Tahoma, sans-serif;
+  --ag-font-size: 12px;
 }
