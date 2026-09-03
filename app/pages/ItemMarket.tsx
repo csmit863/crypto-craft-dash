@@ -56,6 +56,8 @@ export default function ItemMarket() {
     return rows.filter((r) => r.searchKey.includes(q));
   }, [rows, search]);
 
+  
+
 
   const columnDefs = useMemo<ColDef[]>(
     () => [
@@ -74,7 +76,7 @@ export default function ItemMarket() {
         headerName: "Price (BLCK)",
         field: "price",
         flex: 1,
-        sort: "desc",
+        sort: "asc",
         valueFormatter: (p) =>
             p.value.toLocaleString(undefined, {
             minimumFractionDigits: 5,
@@ -101,10 +103,7 @@ export default function ItemMarket() {
     []
     );
 
-
-
-  useEffect(() => {
-    async function loadMarket() {
+  async function loadMarket() {
         try {
             setProgress("Fetching assets…");
 
@@ -193,7 +192,7 @@ export default function ItemMarket() {
             .map((r) => r.value)
             .filter((r): r is MarketRow => r !== null);
 
-            cleaned.sort((a, b) => b.blockLiquidity - a.blockLiquidity);
+            cleaned.sort((a, b) => a.price - b.price);
 
             setRows(cleaned);
         } catch (err) {
@@ -202,15 +201,31 @@ export default function ItemMarket() {
         } finally {
             setLoading(false);
         }
-        }
+    }
 
-
+  useEffect(() => {
     loadMarket();
+
+    const interval = setInterval(() => {
+      loadMarket();
+    }, 7000); // every 7 seconds
+
+    return () => clearInterval(interval);
   }, []);
+
+  
 
   return (
     <div className="p-8 text-black dark:text-white">
       <h1 className="text-2xl font-bold mb-6">Minecraft Item Market</h1>
+      <div className="flex items-center gap-2 mb-4">
+        <div
+          className={`w-3 h-3 rounded-full ${
+            loading ? "bg-yellow-400 animate-pulse" : "bg-green-500"
+          }`}
+        />
+
+      </div>
 
       {loading ? (
         <p>Loading market… {progress}</p> 
