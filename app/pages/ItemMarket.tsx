@@ -274,13 +274,17 @@ export default function ItemMarket() {
                         <div className="mt-2">
                           <button
                             onClick={async () => {
-                              const res = await fetch(`https://testnet.qutblockchain.club`, {
-                                method: 'POST',
-                                headers: {'Content-Type': 'application/json'},
-                                body: JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:selectedRow.asset,data:'0x06fdde03'},'latest']})
-                              });
-                              const data = await res.json();
-                              alert(`RPC result for ${selectedRow.asset}: ${JSON.stringify(data)}`);
+                              const results = [];
+                              for (let i = 0; i < 10; i++) {
+                                const res = await fetch(`https://testnet.qutblockchain.club`, {
+                                  method: 'POST',
+                                  headers: {'Content-Type':'application/json'},
+                                  body: JSON.stringify({jsonrpc:'2.0',id:i,method:'eth_call',params:[{to:selectedRow.asset,data:'0x06fdde03'},`0x${(100000 - i).toString(16)}`]})
+                                });
+                                const data = await res.json();
+                                results.push(`block -${i}: ${JSON.stringify(data.result)}`);
+                              }
+                              alert(`Block-by-block price:\n` + results.join('\n'));
                             }}
                             className="px-3 py-1 bg-[#c0c7c8] text-black border-2 border-t-white border-l-white border-b-[#808080] border-r-[#808080] rounded shadow-[inset_1px_1px_#fff,inset_-1px_-1px_#808080] hover:bg-[#dfdfdf] text-xs"
                           >
