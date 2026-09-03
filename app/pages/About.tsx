@@ -2,7 +2,7 @@
 
 export default function About() {
   return (
-    <div className="p-8 font-sans bg-zinc-50 dark:bg-black min-h-screen text-black dark:text-white">
+    <div className="p-8 bg-[#c0c7c8] text-black min-h-screen" style={{fontFamily: '"Chicago", "MS Sans Serif", Tahoma, sans-serif'}}>
       <h1 className="text-2xl font-bold mb-4">About CryptoCraft Dashboard</h1>
       <p className="mb-4">
         The CryptoCraft Dashboard is a tool to view and interact with Blockcoin and other tokenized assets

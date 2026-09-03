@@ -53,7 +53,7 @@ export default function BlockcoinPage() {
   }, []);
 
   return (
-    <div className="p-8 font-sans bg-zinc-50 dark:bg-black min-h-screen text-black dark:text-white">
+    <div className="p-8 bg-[#c0c7c8] text-black min-h-screen" style={{fontFamily: '"Chicago", "MS Sans Serif", Tahoma, sans-serif'}}>
       <h1 className="text-2xl font-bold mb-4">Top Blockcoin Holders</h1>
       {loading ? (
         <p>Loading balances...</p>
@@ -62,7 +62,7 @@ export default function BlockcoinPage() {
           {balances.map((b) => (
             <li
               key={b.address}
-              className="flex items-center gap-4 p-2 border rounded bg-white dark:bg-gray-900"
+              className="flex items-center gap-4 p-2 border-2 border-[#808080] rounded bg-[#dfdfdf] shadow-[inset_1px_1px_#fff,inset_-1px_-1px_#808080]"
             >
               <Blockies seed={b.address.toLowerCase()} size={10} scale={4} />
               <span>

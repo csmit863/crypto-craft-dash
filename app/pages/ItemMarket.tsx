@@ -20,7 +20,16 @@ import type { ColDef } from "ag-grid-community";
 import { useMemo } from "react";
 import { themeQuartz, colorSchemeDark } from "ag-grid-community";
 
-const myTheme = themeQuartz.withPart(colorSchemeDark);
+const myTheme = themeQuartz.withPart({
+  ...colorSchemeDark,
+  backgroundColor: '#c0c7c8',
+  foregroundColor: '#000000',
+  headerBackgroundColor: '#808080',
+  headerTextColor: '#ffffff',
+  cellTextColor: '#000000',
+  headerFontFamily: '"Chicago", "MS Sans Serif", Tahoma, sans-serif',
+  fontFamily: '"Chicago", "MS Sans Serif", Tahoma, sans-serif',
+});
 
 import { ModuleRegistry, AllCommunityModule } from "ag-grid-community";
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -216,7 +225,7 @@ export default function ItemMarket() {
   
 
   return (
-    <div className="p-8 text-black dark:text-white">
+    <div className="p-8 bg-[#c0c7c8] text-black" style={{fontFamily: '"Chicago", "MS Sans Serif", Tahoma, sans-serif'}}>
       <h1 className="text-2xl font-bold mb-6">Minecraft Item Market</h1>
       <div className="flex items-center gap-2 mb-4">
         <div
@@ -240,7 +249,7 @@ export default function ItemMarket() {
                     placeholder="Search items (e.g. iron bar)"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="mb-4 p-2 w-full max-w-md rounded bg-zinc-800 text-white border border-zinc-600"
+                    className="mb-4 p-2 w-full max-w-md rounded bg-[#c0c7c8] text-black border-2 border-[#808080] shadow-[inset_1px_1px_#fff,inset_-1px_-1px_#808080]"
                     />
 
             <div style={{ height: 600, width: "100%" }}>
@@ -257,8 +266,8 @@ export default function ItemMarket() {
                   }}
                 />
                 {selectedRow && (
-                  <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-                    <div className="bg-zinc-900 text-white p-6 rounded-xl w-full max-w-lg">
+                  <div className="fixed inset-0 bg-[#808080]/60 flex items-center justify-center z-50">
+                    <div className="bg-[#c0c7c8] text-black border-2 border-[#808080] shadow-[inset_1px_1px_#fff,inset_-1px_-1px_#808080] p-6 rounded w-full max-w-lg">
                       <h2 className="text-xl font-bold mb-4">
                         {selectedRow.name} ({selectedRow.symbol})
                       </h2>
@@ -273,7 +282,7 @@ export default function ItemMarket() {
 
                       <button
                         onClick={() => setSelectedRow(null)}
-                        className="mt-6 px-4 py-2 bg-red-600 rounded"
+                        className="mt-6 px-4 py-2 bg-[#c0c7c8] text-black border-2 border-t-white border-l-white border-b-[#808080] border-r-[#808080] rounded shadow-[inset_1px_1px_#fff,inset_-1px_-1px_#808080] hover:bg-[#dfdfdf]"
                       >
                         Close
                       </button>
