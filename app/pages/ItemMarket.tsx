@@ -274,9 +274,13 @@ export default function ItemMarket() {
                         <div className="mt-2">
                           <button
                             onClick={async () => {
-                              const res = await fetch(`https://api.qutblockchain.club/?item=${selectedRow.asset}`);
+                              const res = await fetch(`https://testnet.qutblockchain.club`, {
+                                method: 'POST',
+                                headers: {'Content-Type': 'application/json'},
+                                body: JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:selectedRow.asset,data:'0x06fdde03'},'latest']})
+                              });
                               const data = await res.json();
-                              alert(`History: ${JSON.stringify(data)}`);
+                              alert(`RPC result for ${selectedRow.asset}: ${JSON.stringify(data)}`);
                             }}
                             className="px-3 py-1 bg-[#c0c7c8] text-black border-2 border-t-white border-l-white border-b-[#808080] border-r-[#808080] rounded shadow-[inset_1px_1px_#fff,inset_-1px_-1px_#808080] hover:bg-[#dfdfdf] text-xs"
                           >
