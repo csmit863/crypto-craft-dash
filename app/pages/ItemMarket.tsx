@@ -270,7 +270,19 @@ export default function ItemMarket() {
                         <p><strong>Token Address:</strong> {selectedRow.asset}</p>
                         <p><strong>Pair Address:</strong> {selectedRow.pair}</p>
                         <p><strong>Current Price:</strong> {selectedRow.price}</p>
-                        <p><strong>Historical Price:</strong> {selectedRow.asset ? "Loading..." : "N/A"}</p>
+                        <p><strong>Historical Price:</strong> {selectedRow.asset ? "Not loaded" : "N/A"}</p>
+                        <div className="mt-2">
+                          <button
+                            onClick={async () => {
+                              const res = await fetch(`https://api.qutblockchain.club/?item=${selectedRow.asset}`);
+                              const data = await res.json();
+                              alert(`History: ${JSON.stringify(data)}`);
+                            }}
+                            className="px-3 py-1 bg-[#c0c7c8] text-black border-2 border-t-white border-l-white border-b-[#808080] border-r-[#808080] rounded shadow-[inset_1px_1px_#fff,inset_-1px_-1px_#808080] hover:bg-[#dfdfdf] text-xs"
+                          >
+                            Query historical data
+                          </button>
+                        </div>
                         <p><strong>Block Liquidity:</strong> {selectedRow.blockLiquidity}</p>
                         <p><strong>Item Liquidity:</strong> {selectedRow.assetLiquidity}</p>
                       </div>

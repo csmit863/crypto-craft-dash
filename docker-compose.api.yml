@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  market-api:
+    build: .
+    container_name: market-api
+    ports:
+      - "8765:8765"
+    volumes:
+      - /home/csmit863/market_cache.db:/app/market_cache.db
+    command: python3 query_server.py
+    restart: unless-stopped
