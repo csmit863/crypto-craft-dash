@@ -47,6 +47,7 @@ export default function ItemMarket() {
   const [progress, setProgress] = useState("Starting…");
   const [search, setSearch] = useState("");
   const [selectedRow, setSelectedRow] = useState<MarketRow | null>(null);
+  const [historyResults, setHistoryResults] = useState<{block:string; price:number|null}[]>([]);
 
 
   const filteredRows = useMemo(() => {
@@ -271,7 +272,13 @@ export default function ItemMarket() {
                         <p><strong>Pair Address:</strong> {selectedRow.pair}</p>
                         <p><strong>Current Price:</strong> {selectedRow.price}</p>
                         <p><strong>Historical Price:</strong> {selectedRow.asset ? "Not loaded" : "N/A"}</p>
-                        <div className="mt-2">
+                        {historyResults.length > 0 && (
+                          <div className="mt-4 h-32 flex items-end gap-1 bg-[#dfdfdf] border-2 border-[#808080] p-2 rounded overflow-x-auto">
+                            {historyResults.map((r, i) => (
+                              <div key={i} className="flex-1 bg-[#008080] min-w-[8px] rounded-t" style={{height: `${Math.max(4, ((r.price || 0) / Math.max(...historyResults.map(x=>x.price||1))) * 100)}%`}} title={`Block ${r.block}: ${r.price !== null ? r.price.toFixed(4) : 'n/a'}`} />
+                            ))}
+                          </div>
+                        )}
                           <button
                             onClick={async () => {
                               const pairAddr = selectedRow.pair || "0x0000000000000000000000000000000000000000";
@@ -291,9 +298,10 @@ export default function ItemMarket() {
                                   const r1 = parseInt(data.result[1].slice(2), 16);
                                   price = r1 / r0 || null;
                                 }
-                                results.push({block: `-${i}`, price: price !== null ? price.toFixed(4) : 'n/a'});
+                                results.push({block: `-${i}`, price: price !== null ? price : null});
                               }
-                              const chartText = results.map(r => `Block ${r.block}: price=${r.price}`).join('\n');
+                              setHistoryResults(results);
+                              const chartText = results.map(r => `Block ${r.block}: price=${r.price !== null ? r.price.toFixed(4) : 'n/a'}`).join('\n');
                               alert(`Price chart (block -> price):\n` + chartText);
                             }}
                             className="px-3 py-1 bg-[#c0c7c8] text-black border-2 border-t-white border-l-white border-b-[#808080] border-r-[#808080] rounded shadow-[inset_1px_1px_#fff,inset_-1px_-1px_#808080] hover:bg-[#dfdfdf] text-xs"
